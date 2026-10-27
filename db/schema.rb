@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_27_052652) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_27_111011) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
-  create_table "comments", force: :cascade do |t|
+  create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -41,6 +41,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_27_052652) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "posts", "users"
   add_foreign_key "comments", "users", column: "users_id"
+  add_foreign_key "posts", "users"
 end

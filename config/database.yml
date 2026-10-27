@@ -18,6 +18,8 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # Local PostgreSQL 16 listens on 5433; override with DB_PORT if needed.
+  port: <%= ENV.fetch("DB_PORT") { 5433 } %>
 
 
 development:

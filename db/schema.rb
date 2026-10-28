@@ -14,16 +14,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_28_052550) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
-  create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "body"
+  create_table "comments", force: :cascade do |t|
+    t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "user_id", null: false
     t.uuid "post_id", null: false
     t.uuid "parent_comment_id"
-    t.index ["parent_comment_id"], name: "index_comments_on_parent_comment_id"
-    t.index ["post_id"], name: "index_comments_on_post_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
+    t.index [ "parent_comment_id" ], name: "index_comments_on_parent_comment_id"
+    t.index [ "post_id" ], name: "index_comments_on_post_id"
+    t.index [ "user_id" ], name: "index_comments_on_user_id"
   end
 
   create_table "posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -32,7 +32,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_28_052550) do
     t.string "title", null: false
     t.text "body"
     t.uuid "user_id", null: false
-    t.index ["user_id"], name: "index_posts_on_user_id"
+    t.index [ "user_id" ], name: "index_posts_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -52,9 +52,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_28_052550) do
     t.integer "vote_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id", "votable_type", "votable_id"], name: "index_votes_on_user_id_and_votable_type_and_votable_id", unique: true
-    t.index ["user_id"], name: "index_votes_on_user_id"
-    t.index ["votable_type", "votable_id"], name: "index_votes_on_votable"
+    t.index [ "user_id", "votable_type", "votable_id" ], name: "index_votes_on_user_id_and_votable_type_and_votable_id", unique: true
+    t.index [ "user_id" ], name: "index_votes_on_user_id"
+    t.index [ "votable_type", "votable_id" ], name: "index_votes_on_votable"
+    t.index [ "email" ], name: "index_users_on_email"
   end
 
   add_foreign_key "comments", "comments", column: "parent_comment_id"

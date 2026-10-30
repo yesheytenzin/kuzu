@@ -6,14 +6,16 @@ class SessionsController < ApplicationController
     end
 
     if @user.authenticate(login_params[:password])
-      return render json: { login: "successful" }, status: :ok
+      render json: { login: "successful" }, status: :ok
+
     else
-      return render json: { login: "failed" }, status: :unauthorized
+      render json: { login: "failed" }, status: :unauthorized
     end
   end
 
   private
   def login_params
-    params.expect(user: [:email, :password])
+    params.expect(user: [ :email, :password ])
   end
 end
+

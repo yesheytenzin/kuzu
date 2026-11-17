@@ -59,6 +59,11 @@ development:
 test:
   <<: *default
   database: kuzu_test
+  # Set DB_HOST/DB_USER/DB_PASSWORD to connect over TCP (e.g. in CI);
+  # left blank the client uses the local socket.
+  host: <%= ENV["DB_HOST"] %>
+  username: <%= ENV["DB_USER"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is

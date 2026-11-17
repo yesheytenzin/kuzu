@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Vote, type: :model do
-
   let(:user) { User.create!(username: "KarmaT", email: "karma@mail.com", password_digest: "pass123") }
   let(:post) { Post.create!(user: user, title: 'Title', body: 'Body') }
 

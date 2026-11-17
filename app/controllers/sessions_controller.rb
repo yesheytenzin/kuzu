@@ -6,11 +6,17 @@ class SessionsController < ApplicationController
     end
 
     if @user.authenticate(login_params[:password])
+      session[:user_id] = user.id
       render json: { login: "successful" }, status: :ok
-
     else
       render json: { login: "failed" }, status: :unauthorized
     end
+  end
+
+  def destroy
+    session[:user_id] = nil
+
+    render json: { logout: "successful" }, status: :ok
   end
 
   private

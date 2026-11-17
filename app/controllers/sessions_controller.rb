@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     end
 
     if @user.authenticate(login_params[:password])
-      session[:user_id] = user.id
+      session[:user_id] = @user.id
       render json: { login: "successful" }, status: :ok
     else
       render json: { login: "failed" }, status: :unauthorized

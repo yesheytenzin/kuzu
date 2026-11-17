@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def create
-    @user = User.find_by(params[:email])
+    @user = User.find_by(email: login_params[:email])
     if @user.nil?
       return render json: { error: "user not found" }
     end
@@ -14,8 +14,8 @@ class SessionsController < ApplicationController
   end
 
   private
+
   def login_params
     params.expect(user: [ :email, :password ])
   end
 end
-

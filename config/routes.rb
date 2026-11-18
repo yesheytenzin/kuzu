@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # vote api
-  get 'post_vote', to: "votes#posts"
-  get 'comment_vote',to: "votes#comments"
+  get "post_vote", to: "votes#posts"
+  get "comment_vote",to: "votes#comments"
+  put "post/:id", to: "posts#update"
+  delete "post/:id", to: "posts#destroy"
 end

@@ -17,8 +17,9 @@ class CommentsController < ApplicationController
     @comment.post_id = params[:post_id]
     @comment.user = current_user
     @comment.body = params[:body]
+
     if @comment.save
-        render json: { comment: @comment }, status: :ok
+      render json: { comment: @comment }, status: :ok
     else
       render json: { error: @comment.errors.full_messages }, status: :unprocessable_entity
     end
@@ -27,8 +28,9 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:comment_id])
     @comment.body = params[:body]
+
     if @comment.save
-        render json: { comment: @comment }, status: :ok
+      render json: { comment: @comment }, status: :ok
     else
       render json: { error: @comment.errors.full_messages }, status: :unprocessable_entity
     end
@@ -36,6 +38,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:comment_id])
+
     if @comment.destroy
       render json: { comment: @comment }, status: :ok
     else

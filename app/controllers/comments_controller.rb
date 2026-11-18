@@ -2,7 +2,14 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: %i[show update destroy]
 
   def index
-    @comments = Comment.all # TODO: Add Pagination
+    @post = Post.find(params[:post_id]) # TODO: Add Pagination
+    @comments = @post.comments
+
+    render json: { comments: @comments }, status: :ok
+  end
+
+  def index
+    @comments = Comment.where(post_id: params[:post_id])
 
     render json: { comments: @comments }, status: :ok
   end

@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
+  
+  get "posts", to: "posts#index"
+  get "posts/:id", to: "posts#show"
+
+  post "posts", to: "posts#create"
 
   get "posts/:post_id/comments", to: "comments#index"
   get "posts/:post_id/comments/:comment_id", to: "comments#show"

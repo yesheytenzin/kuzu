@@ -42,6 +42,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.expect(product: [ :title, :body, user_id: current_user.id ])
+    params.expect(post: [ :title, :body, user_id: current_user.id ])
   end
 end

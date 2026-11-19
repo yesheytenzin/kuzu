@@ -1,18 +1,22 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ update delete show ]
+  before_action :set_post, only: %i[ update destroy show ]
   def index
     @posts = Post.all
+    render json: @posts
   end
 
   def show
+    @post = Post.find_by(params[:id])
+    render json: @post
   end
 
   def create
     @post = Post.new(post_params)
     if @post.save
-      render json: @post status: 'ok'
+      render json: @post, status: :ok
     else
-      render json: {error: "Failed to create post!"}, status: :unprocessable_entity
+      render json: { error: "Failed to create post!" }, status: :unprocessable_entity
+    end
   end
 
   def update
@@ -38,7 +42,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.expect(product: [:title, :body, user_id: current_user.id])
+    params.expect(post: [ :title, :body, user_id: current_user ])
   end
-
 end

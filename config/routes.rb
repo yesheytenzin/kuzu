@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
-  
+
   get "posts", to: "posts#index"
   get "posts/:id", to: "posts#show"
+  put "posts/:id", to: "posts#update"
+  delete "posts/:id", to: "posts#destroy"
 
   post "posts", to: "posts#create"
 
@@ -16,9 +18,9 @@ Rails.application.routes.draw do
 
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # vote api
-  get "post_vote", to: "votes#posts"
-  get "comment_vote",to: "votes#comments"
   put "post/:id", to: "posts#update"
   delete "post/:id", to: "posts#destroy"
+
+  get "posts/:post_id/comments/:id/votes", to: "votes#count"
+  get "posts/:id/votes", to: "votes#count"
 end

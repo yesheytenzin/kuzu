@@ -8,12 +8,6 @@ class CommentsController < ApplicationController
     render json: { comments: @comments }, status: :ok
   end
 
-  def index
-    @comments = Comment.where(post_id: params[:post_id])
-
-    render json: { comments: @comments }, status: :ok
-  end
-
   def show
     render json: { comment: @comment }, status: :ok
   end

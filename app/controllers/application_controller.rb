@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::API
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return unless session[:user_id]
-    @current_user ||= User.find(session[:user_id])
+    @current_user ||= User.find_by(session[:user_id])
   end
 end

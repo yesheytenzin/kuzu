@@ -1,10 +1,6 @@
 class VotesController < ApplicationController
-  def count
+  def score
     votes = Vote.where(votable_id: params[:id])
-    if params[:vote_type] == "upvote"
-      render json: votes.where(vote_type: "upvote").count
-    else
-      render json: votes.where(vote_type: "downvote").count
-    end
+    render json: votes.where(vote_type: "upvote").count - votes.where(vote_type: "downvote").count
   end
 end

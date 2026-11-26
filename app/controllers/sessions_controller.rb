@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  include Authenticable
+
   def create
     @user = User.find_by(email: login_params[:email])
     if @user.nil?

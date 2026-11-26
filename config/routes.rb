@@ -1,13 +1,16 @@
 Rails.application.routes.draw do
+  get "up" => "rails/health#show", as: :rails_health_check
+
+  # Login routes
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
 
+  # Post routes
   get "posts", to: "posts#index"
   get "posts/:id", to: "posts#show"
+  post "posts", to: "posts#create"
   put "posts/:id", to: "posts#update"
   delete "posts/:id", to: "posts#destroy"
-
-  post "posts", to: "posts#create"
 
   # Comment routes
   get "posts/:post_id/comments", to: "comments#index"
@@ -16,11 +19,7 @@ Rails.application.routes.draw do
   put "posts/:post_id/comments/:comment_id", to: "comments#update"
   delete "posts/:post_id/comments/:comment_id", to: "comments#destroy"
 
-  get "up" => "rails/health#show", as: :rails_health_check
-
-  put "post/:id", to: "posts#update"
-  delete "post/:id", to: "posts#destroy"
-
+  # Vote routes
   get "posts/:post_id/comments/:id/votes", to: "votes#score"
   get "posts/:id/votes", to: "votes#score"
   post "posts/:id/votes", to: "votes#vote"

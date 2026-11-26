@@ -14,6 +14,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
+    @comment.post_id = params[:post_id]
     @comment.user = current_user
 
     if @comment.save
@@ -42,7 +43,7 @@ class CommentsController < ApplicationController
   private
 
   def set_comment
-    @comment = Comment.find_by(id: params[:id])
+    @comment = Comment.find_by(id: params[:comment_id])
     render json: { error: "Comment does not exist" }, status: :not_found unless @comment
   end
 

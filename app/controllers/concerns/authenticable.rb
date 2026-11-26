@@ -6,7 +6,7 @@ module Authenticable
   end
 
   def decode(payload)
-    Base64.decode64(payload.to_json)
+    JSON.parse(Base64.decode64(payload))
   end
 
   def current_user

@@ -8,8 +8,7 @@ class SessionsController < ApplicationController
     end
 
     if @user.authenticate(login_params[:password])
-      puts token = encode(@user.id)
-      render json: { login: "successful" }, status: :ok
+      render json: { token: encode(@user.id), login: "successful" }, status: :ok
     else
       render json: { login: "failed" }, status: :unauthorized
     end

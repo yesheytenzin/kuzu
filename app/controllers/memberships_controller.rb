@@ -1,4 +1,5 @@
 class MembershipsController < ApplicationController
+  include Authenticable
   def create
     community = Community.find(params[:community_id])
     membership = CommunityMembership.new(user: current_user, community: community)

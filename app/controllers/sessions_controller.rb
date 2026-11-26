@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     end
 
     if @user.authenticate(login_params[:password])
-      session[:user_id] = @user.id
+      puts token = encode(@user.id)
       render json: { login: "successful" }, status: :ok
     else
       render json: { login: "failed" }, status: :unauthorized
@@ -16,7 +16,6 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    reset_session
     render json: { logout: "successful" }, status: :ok
   end
 

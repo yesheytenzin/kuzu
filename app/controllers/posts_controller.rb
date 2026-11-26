@@ -11,11 +11,11 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.build(post_params)   # user_id set automatically
     if @post.save
-      render json: @post, status: :ok
+      render json: @post, status: :created
     else
-      render json: { error: "Failed to create post!" }, status: :unprocessable_entity
+      render json: { errors: @post.errors.full_messages }, status: :unprocessable_content
     end
   end
 
@@ -42,6 +42,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.expect(post: [ :title, :body, user_id: current_user ])
+    params.expect(post: [ :title, :body ])
   end
 end

@@ -24,6 +24,6 @@ Rails.application.routes.draw do
   get "posts/:post_id/comments/:id/votes", to: "votes#score"
   get "posts/:id/votes", to: "votes#score"
   post "posts/:id/vote", to: "votes#vote"
-  post "posts/:post_id/comments/:id", to: "votes#vote"
-
+  post "posts/:id/vote", to: "votes#vote"
+  post "posts/:post_id/comments/:id/vote", to: "votes#vote"
 end

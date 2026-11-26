@@ -1,11 +1,12 @@
 class MembershipsController < ApplicationController
   def create
-    @membership = CommunityMembership.create!(membership_params)
-      render json: @membership, status: :ok
-  end
+    community = Community.find(params[:community_id])
+    membership = CommunityMembership.new(user: current_user, community: community)
 
-  private
-  def membership_params
-    params.expect(communityMembership: [ user_id: current_user ])
+    if membership.save
+      render json: membership, status: :created
+    else
+      render json: { errors: membership.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 end

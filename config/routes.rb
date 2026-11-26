@@ -21,6 +21,6 @@ Rails.application.routes.draw do
   put "post/:id", to: "posts#update"
   delete "post/:id", to: "posts#destroy"
 
-  get "posts/:post_id/comments/:id/votes", to: "votes#count"
-  get "posts/:id/votes", to: "votes#count"
+  get "posts/:post_id/comments/:id/votes", to: "votes#score"
+  get "posts/:id/votes", to: "votes#score"
 end

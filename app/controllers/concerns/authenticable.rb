@@ -8,7 +8,7 @@ module Authenticable
     }
     headers_base64 = Base64.urlsafe_encode64(headers.to_json, padding: false)
     payload_base64 = Base64.urlsafe_encode64(payload.to_json, padding: false)
-    signature = OpenSSL::HMAC.digest("SHA256", "MY_KEY", headers_base64 + "." + payload_base64)
+    signature = OpenSSL::HMAC.digest("SHA256", Rails.application.credentials.secret_key_base, headers_base64 + "." + payload_base64)
     signature_base64 = Base64.urlsafe_encode64(signature, padding: false)
 
     headers_base64 + "." + payload_base64 + "." + signature_base64
